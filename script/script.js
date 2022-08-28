@@ -22,13 +22,14 @@ window.addEventListener('keyup', () => {
     let rMortgage = (houseCost.value - deposit.value);
     remainingMortgage.innerHTML = '£' + rMortgage.toLocaleString();
 9
-    let monthlyInterest = ((houseCost.value - deposit.value) * (interestRate.value / 100)) / 12;
+    let monthlyInterest = rMortgage * ((interestRate.value / 100) / 12);
     totalInterestMonthly.innerHTML = '£' + monthlyInterest.toLocaleString();
+    console.log(monthlyInterest);
 
-    let totalInterest = ((houseCost.value - deposit.value) * ((interestRate.value / 100) /12)) * mortgageTerm.value;
+    let totalInterest = monthlyInterest * (mortgageTerm.value * 12);
     totalInterestAccrued.innerHTML = '£' + totalInterest.toLocaleString();
 
-    let mMortgageCost = ((((houseCost.value - deposit.value) / mortgageTerm.value) / 12) + monthlyInterest);
+    let mMortgageCost = rMortgage / (mortgageTerm.value * 12) + monthlyInterest;
     monthlyMortgageCost.innerHTML = '£' + mMortgageCost.toLocaleString();
 
     let totalAmountPayable = ((houseCost.value - deposit.value) + totalInterest)
